@@ -9,7 +9,9 @@ const MessageBox = (props: any) => {
     const getMessages = async () => {
         const res = await axios.get(`http://127.0.0.1:5000/messages/${props.conversation_id}`)
         console.log(res)
-        setMessages(res.data)
+        let reverse = res.data
+        reverse.reverse()
+        setMessages(reverse)
     }
 
     useEffect(() => {

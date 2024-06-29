@@ -1,0 +1,21 @@
+.message-input {
+    display: flex;
+    width: 100vh;
+    box-sizing: border-box;
+}
+
+.message-input form {
+    display:flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.message-input input {
+    margin-bottom: 0px;
+    border-radius: 8px;
+    box-sizing: inherit;
+}
+
+.message-input button {
+    
+}

@@ -2,7 +2,7 @@ from flask import current_app as app, request, jsonify
 from app.utils.database import Database
 from app.utils.security import hashPassword, generateToken, checkPassword
 
-@app.route("/user/create", methods=['POST'])
+@app.route("/users/create", methods=['POST'])
 def createUser():
     data = request.get_json()
     username = data.get('username')
@@ -33,7 +33,7 @@ def authenticateUser():
     user_updated = Database('app/data.db').execute('UPDATE Users SET token = ? WHERE username = ?', token, username)
     
     if isUser:
-        return jsonify({'message': token}), 200
+        return jsonify({'token': token}), 200
     else:
         return jsonify({'message': 'failed'}), 401
 
