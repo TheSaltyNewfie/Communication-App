@@ -33,7 +33,7 @@ def authenticateUser():
     user_updated = Database('app/data.db').execute('UPDATE Users SET token = ? WHERE username = ?', token, username)
     
     if isUser:
-        return jsonify({'message': token}), 200
+        return jsonify({'token': token}), 200
     else:
         return jsonify({'message': 'failed'}), 401
 
