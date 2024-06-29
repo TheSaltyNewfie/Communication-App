@@ -2,7 +2,7 @@ from flask import current_app as app, request, jsonify
 from app.utils.database import Database
 from app.utils.security import hashPassword, generateToken, checkPassword
 
-@app.route("/user/create", methods=['POST'])
+@app.route("/users/create", methods=['POST'])
 def createUser():
     data = request.get_json()
     username = data.get('username')

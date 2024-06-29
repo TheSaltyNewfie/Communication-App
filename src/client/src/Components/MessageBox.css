@@ -4,6 +4,8 @@
     flex-direction: column;
     border: 2px solid rgba(150, 145, 154, 0.5);
     border-radius: 5px;
+    overflow:auto;
+    flex-direction: column-reverse;
 }
 
 .message {

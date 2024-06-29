@@ -1,16 +1,27 @@
 import MessageBox from '../Components/MessageBox'
+import MessageInput from '../Components/MessageInput'
 import './HomePage.css'
 
 const HomePage = () => {
 
+    //<MessageBox className='messagebox' conversation_id="2"/>
+
     return (
-        <div className='main roboto-regular'>
-            <div className='navbar'>
-                <button className='roboto-regular'>Home</button>
-                <button className='roboto-regular'>Convos</button>
-                <button className='roboto-regular'>Log out</button>
+        <div className='main-root'>
+            <div className='nav'>
+                <button>One</button>
+                <button>Two</button>
+                <button>Three</button>
             </div>
-            <MessageBox className='messagebox' conversation_id="2"/>
+            <div className='message-root'>
+                <div className='messages-main'>
+                    <MessageBox className='messagebox' conversation_id="2"/>
+                </div>
+                <div className='messages-input'>
+                    <MessageInput/>
+                </div>
+            </div>
+
         </div>
     )
 }
