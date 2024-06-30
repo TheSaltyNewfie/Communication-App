@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import { User } from '../Components/datatypes'
+import { useState } from 'react'
 import axios from 'axios'
 import './LoginPage.css'
 import { useNavigate } from 'react-router-dom'

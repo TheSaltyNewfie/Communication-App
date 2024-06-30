@@ -6,7 +6,7 @@ import config from '../assets/config.json'
 
 const MessageBox = (props: any) => {
     const [messages, setMessages] = useState<Message[]>([])
-    const [ticking, setTicking] = useState(true)
+    const [ticking] = useState(true)
     const [count, setCount] = useState(0)
 
     const getMessages = async () => {
