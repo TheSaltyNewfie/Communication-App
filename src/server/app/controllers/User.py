@@ -2,7 +2,7 @@ from flask import current_app as app, request, jsonify
 from app.utils.database import Database
 from app.utils.security import hashPassword, generateToken, checkPassword
 
-@app.route("/users/create", methods=['POST'])
+@app.route('/users/create', methods=['POST'])
 def createUser():
     data = request.get_json()
     username = data.get('username')
@@ -12,13 +12,13 @@ def createUser():
 
     password_hash = hashPassword(password)
 
-    result = Database('app/data.db').execute(f'insert into Users (username, email, password_hash, token) VALUES (?, ?, ?, ?)', username, email, password_hash, token)
+    Database('app/data.db').execute(f'insert into Users (username, email, password_hash, token) VALUES (?, ?, ?, ?)', username, email, password_hash, token)
 
     user = Database('app/data.db').execute('SELECT * FROM Users WHERE username = ?', username)
 
     return jsonify({'token': token, 'sender_id': user[0][0]}), 201
 
-@app.route("/users/authenticate", methods=['POST'])
+@app.route('/users/authenticate', methods=['POST'])
 def authenticateUser():
     data = request.get_json()
     username = data.get('username')
@@ -40,18 +40,27 @@ def authenticateUser():
         return jsonify({'message': 'failed'}), 401
 
 
-@app.route("/users/<id>", methods=['GET'])
+@app.route('/users/<id>', methods=['GET'])
 def getUsers(id):
     users = Database('app/data.db').execute('select username, email from Users where user_id = ?', id)
 
     obj = {
-        "username": users[0][0],
-        "email": users[0][1]
+        'username': users[0][0],
+        'email': users[0][1]
     }
 
     return jsonify(obj)
 
-@app.route("/users/reset", methods=['PUT'])
+@app.route('/account', methods=['GET'])
+def getAccount():
+    token = request.headers.get('Authorization')
+    user = Database('app/data.db').execute('select * from Users where token = ?', token)
+    if len(user) == 0:
+        return jsonify({'message': 'invalid token'}), 401
+    else:
+        return jsonify({'message': 'successful'})
+
+@app.route('/users/reset', methods=['PUT'])
 def resetPassword():
     data = request.get_json()
     username = data.get('username')
