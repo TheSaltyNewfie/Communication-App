@@ -3,6 +3,7 @@ import {User} from '../Components/datatypes'
 import axios from 'axios'
 import './LoginPage.css'
 import { useNavigate } from 'react-router-dom'
+import config from '../assets/config.json'
 
 const LoginPage = () => {
 
@@ -13,7 +14,7 @@ const LoginPage = () => {
     const submitLogin = async (e:any) => {
         e.preventDefault()
 
-        const res = await axios.post('http://71.7.252.234:5000/users/authenticate',
+        const res = await axios.post(`${config.api_endpoint}/users/authenticate`,
             {
                 username: username,
                 password: password
