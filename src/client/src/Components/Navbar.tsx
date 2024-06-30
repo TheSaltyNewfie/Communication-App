@@ -26,7 +26,7 @@ const Navbar = (props: any) => {
             {conversations.map((_, key) => (
                 <button onClick={() => setConvo(key)} key={key}>{conversations[key].name}</button>
             ))}
-            <button>Create</button>
+            <button onClick={props.openModal}>Create</button>
         </div>
     )
 }
