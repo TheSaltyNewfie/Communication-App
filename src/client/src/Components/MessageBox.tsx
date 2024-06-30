@@ -6,7 +6,7 @@ import config from '../assets/config.json'
 
 const MessageBox = (props: any) => {
     const [messages, setMessages] = useState<Message[]>([])
-    const [ticking, setTicking] = useState(true)
+    const [ticking] = useState(true)
     const [count, setCount] = useState(0)
 
     const getMessages = async () => {
@@ -29,8 +29,8 @@ const MessageBox = (props: any) => {
         <div className="message-area">
             {messages.map((message, index) => (
                 <div className="message" key={index}>
-                    {message.sender === 'TobiasDodge' ? (
-                        <h2 style={{ color: 'gold' }}>{message.sender}</h2>
+                    {config.special_names.includes(message.sender) ? (
+                        <h2 style={{ color: config.special_name_color }}>{message.sender}</h2>
                     ) : (
                         <h2>{message.sender}</h2>
                     )}

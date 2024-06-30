@@ -5,7 +5,7 @@ import Navbar from '../Components/Navbar'
 import './HomePage.css'
 import { useNavigate } from 'react-router-dom'
 
-const HomePage = (props: any) => {
+const HomePage = () => {
     const senderID = localStorage.getItem('sender_id')
     const navigate = useNavigate()
 
