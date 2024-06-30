@@ -12,9 +12,11 @@ def createUser():
 
     password_hash = hashPassword(password)
 
-    Database('app/data.db').execute(f'insert into Users (username, email, password_hash, token) VALUES (?, ?, ?, ?)', username, email, password_hash, token)
+    result = Database('app/data.db').execute(f'insert into Users (username, email, password_hash, token) VALUES (?, ?, ?, ?)', username, email, password_hash, token)
 
-    return jsonify({'message': token})
+    user = Database('app/data.db').execute('SELECT * FROM Users WHERE username = ?', username)
+
+    return jsonify({'token': token, 'sender_id': user[0][0]}), 201
 
 @app.route("/users/authenticate", methods=['POST'])
 def authenticateUser():
@@ -33,7 +35,7 @@ def authenticateUser():
     user_updated = Database('app/data.db').execute('UPDATE Users SET token = ? WHERE username = ?', token, username)
     
     if isUser:
-        return jsonify({'token': token}), 200
+        return jsonify({'token': token, 'sender_id': user[0][0]}), 200
     else:
         return jsonify({'message': 'failed'}), 401
 
@@ -48,3 +50,11 @@ def getUsers(id):
     }
 
     return jsonify(obj)
+
+@app.route("/users/reset", methods=['PUT'])
+def resetPassword():
+    data = request.get_json()
+    username = data.get('username')
+    email = data.get('email')
+
+    user = Database('app/data.db').execute('select')

@@ -8,14 +8,16 @@ const LoginPage = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
     const navigate = useNavigate()
 
     const submitLogin = async (e:any) => {
         e.preventDefault()
 
-        const res = await axios.post('http://71.7.252.234:5000/users/authenticate',
+        const res = await axios.post('http://71.7.252.234:5000/users/create',
             {
                 username: username,
+                email: email,
                 password: password
             }
         )
@@ -35,8 +37,8 @@ const LoginPage = () => {
         setPassword(e.target.value)
     }
 
-    const handleRegister = () => {
-        navigate("/register")
+    const handleEmail = (e:any) => {
+        setEmail(e.target.value)
     }
 
     return (
@@ -52,6 +54,14 @@ const LoginPage = () => {
                     />
 
                     <input
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        onChange={handleEmail}
+                        className='roboto-regular'
+                    />
+
+                    <input
                         type="password"
                         placeholder="Password"
                         value={password}
@@ -60,7 +70,6 @@ const LoginPage = () => {
                     />
 
                     <button type='submit'>Submit</button>
-                    <button type="button" onClick={handleRegister}>Register</button>
                 </form>
             </div>
         </div>
