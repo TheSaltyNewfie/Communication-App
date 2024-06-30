@@ -43,8 +43,18 @@ This is a simple messaging application designed with a focus on simplicity. The 
     cd client
     npm install
     ```
+3. Configure the frontend:
+    ```jsonc
+    {
+        "special_names": [ // Allows for special users
+            "TobiasDodge"
+        ],
+        "special_name_color": "gold", // This can be any color
+        "api_endpoint": "https://api.thesaltynewfie.ca" // Change this to your API link
+    }
+    ```
 
-3. Start the development server:
+4. Start the development server:
     ```sh
     npm run dev
     ```
