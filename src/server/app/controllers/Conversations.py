@@ -15,3 +15,20 @@ def createConversation():
 def getConversation(name):
     result = Database('app/data.db').execute('select conversation_id from Conversations where name = ?', name)
     return jsonify({'message': result[0][0]})
+
+@app.route("/conversations", methods=['GET'])
+def getConversations():
+    result = Database('app/data.db').execute('select * from Conversations')
+
+    obj = []
+
+    for conversation in result:
+        print(conversation)
+        obj.append({
+            "conversation_id": conversation[0],
+            "name": conversation[1]
+        })
+
+    print(obj)
+
+    return jsonify(obj)
