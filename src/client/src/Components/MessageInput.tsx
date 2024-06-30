@@ -1,6 +1,7 @@
 import { useState } from "react"
 import axios from 'axios'
 import './MessageInput.css'
+import config from '../assets/config.json'
 
 const MessageInput = (props: any) => {
 
@@ -9,7 +10,7 @@ const MessageInput = (props: any) => {
     const handleSubmit = async (e:any) => {
         e.preventDefault()
         
-        const res = await axios.post('http://71.7.252.234:5000/messages/create',
+        const res = await axios.post(`${config.api_endpoint}/messages/create`,
             {
                 "conversation_id": props.conversation_id,
                 "sender_id": props.sender_id,

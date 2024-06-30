@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import {Message} from './datatypes'
 import './MessageBox.css'
+import config from '../assets/config.json'
 
 const MessageBox = (props: any) => {
     const [messages, setMessages] = useState<Message[]>([])
@@ -9,7 +10,7 @@ const MessageBox = (props: any) => {
     const [count, setCount] = useState(0)
 
     const getMessages = async () => {
-        const res = await axios.get(`http://71.7.252.234:5000/messages/${props.conversation_id}`)
+        const res = await axios.get(`${config.api_endpoint}/messages/${props.conversation_id}`)
         console.log(res)
         let reverse = res.data
         reverse.reverse()
