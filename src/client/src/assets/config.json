@@ -2,6 +2,6 @@
     "special_names": [
         "TobiasDodge"
     ],
-    "special_name_color": "gold",
+    "special_name_color": "#83b420",
     "api_endpoint": "https://api.thesaltynewfie.ca"
 }
