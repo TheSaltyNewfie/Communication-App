@@ -6,6 +6,7 @@ export interface Message {
 }
 
 export interface Conversation {
+    conversation_id: number
     name: string
 }
 

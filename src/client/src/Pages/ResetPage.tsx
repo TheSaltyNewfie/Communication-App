@@ -1,7 +1,3 @@
-
-
-const ResetPage = () => {
-
-}
+const ResetPage = () => {}
 
 export default ResetPage

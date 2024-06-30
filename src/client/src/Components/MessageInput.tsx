@@ -1,31 +1,26 @@
-import { useState } from "react"
+import { useState } from 'react'
 import axios from 'axios'
 import './MessageInput.css'
 import config from '../assets/config.json'
 
 const MessageInput = (props: any) => {
-
     const [content, setContent] = useState('')
 
-    const handleSubmit = async (e:any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
-        
-        const res = await axios.post(`${config.api_endpoint}/messages/create`,
-            {
-                "conversation_id": props.conversation_id,
-                "sender_id": props.sender_id,
-                "content": content
-            }
-        )
+
+        const res = await axios.post(`${config.api_endpoint}/messages/create`, {
+            conversation_id: props.conversation_id,
+            sender_id: props.sender_id,
+            content: content
+        })
 
         setContent('')
-        props.render_comments()
-    } 
+    }
 
     const handleContent = (e: any) => {
         setContent(e.target.value)
     }
-
 
     return (
         <div className="message-input roboto-regular">
