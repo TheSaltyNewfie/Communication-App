@@ -32,15 +32,19 @@ const HomePage = () => {
 
     useEffect(() => {
         const getAccount = async () => {
-            await axios.get(`${config.api_endpoint}/account`, {
-                headers: {
-                    "Authorization": localStorage.getItem('token')
-                }
-            }).catch((error: any) => {
+            try {
+                const res = await axios.get(`${config.api_endpoint}/account`, {
+                    headers: {
+                        "Authorization": localStorage.getItem('token')
+                    }
+                })
+
+                localStorage.setItem('username', res.data.username)
+            } catch (error: any) {
                 if (error.response.status == 401) {
                     navigate('/login')
                 }
-            })
+            }
         }
 
         getAccount()

@@ -3,11 +3,12 @@ import axios from 'axios'
 import { Message } from './datatypes'
 import './MessageBox.css'
 import config from '../assets/config.json'
+import { socket } from '../socket'
 
 const MessageBox = (props: any) => {
     const [messages, setMessages] = useState<Message[]>([])
-    const [ticking] = useState(true)
-    const [count, setCount] = useState(0)
+    const [isConnected, setIsConnected] = useState(socket.connected)
+
 
     const getMessages = async () => {
         const res = await axios.get(
@@ -25,9 +26,34 @@ const MessageBox = (props: any) => {
 
     useEffect(() => {
         getMessages()
-        const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
-        return () => clearTimeout(timer)
-    }, [count, ticking])
+    }, [])
+
+    useEffect(() => {
+
+        function onConnect() {
+            setIsConnected(true)
+        }
+
+        function onDisconnect() {
+            setIsConnected(false)
+        }
+
+        function onMessage(data: any) {
+            console.log(data)
+
+            setMessages(previous => [data, ...previous])
+        }
+
+        socket.on('connect', onConnect)
+        socket.on('disconnect', onDisconnect)
+        socket.on('newMessage', onMessage)
+
+        return () => {
+            socket.off('connect', onConnect)
+            socket.off('disconnect', onDisconnect)
+            socket.off('newMessage', onMessage)
+        }
+    }, [messages])
 
     return (
         <div className="message-area">
@@ -39,7 +65,7 @@ const MessageBox = (props: any) => {
                         <h2>{message.sender}</h2>
                     )}
                     <p>{message.content}</p>
-                    <p>{message.sent_at.toString()}</p>
+                    {/*<p>{message.sent_at.toString()}</p>*/}
                 </div>
             ))}
         </div>

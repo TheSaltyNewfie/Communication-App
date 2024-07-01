@@ -57,11 +57,11 @@ def getUsers(id):
 @app.route('/account', methods=['GET'])
 def getAccount():
     token = request.headers.get('Authorization')
-    user = Database('app/data.db').execute('select * from Users where token = ?', token)
+    user = Database('app/data.db').execute('select username from Users where token = ?', token)
     if len(user) == 0:
         return jsonify({'message': 'invalid token'}), 401
     else:
-        return jsonify({'message': 'successful'})
+        return jsonify({'username': user[0][0]})
 
 @app.route('/users/reset', methods=['PUT'])
 def resetPassword():
