@@ -19,6 +19,7 @@ const Navbar = (props: any) => {
 
     const setConvo = (value: number) => {
         props.conversationNumber(value)
+        props.currentMessages([])
     }
 
     useEffect(() => {
