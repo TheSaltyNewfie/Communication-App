@@ -17,9 +17,10 @@ const Navbar = (props: any) => {
         setConversations(res.data)
     }
 
-    const setConvo = (value: number) => {
-        props.conversationNumber(value)
-        props.currentMessages([])
+    const setConvo = async (value: number) => {
+        await props.conversationNumber(value)
+        await props.setCurrentMessages([])
+        await props.getMessages()
     }
 
     useEffect(() => {
