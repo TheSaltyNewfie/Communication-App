@@ -26,6 +26,7 @@ const MessageBox = (props: any) => {
 
     useEffect(() => {
         getMessages()
+        props.currentMessages(messages)
     }, [])
 
     useEffect(() => {

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import config from '../assets/config.json'
 import Modal from '../Components/Modal'
+import { Message } from '../Components/datatypes'
 
 const HomePage = () => {
     const senderID = localStorage.getItem('sender_id')
@@ -15,6 +16,7 @@ const HomePage = () => {
     const [conversation, setConversation] = useState(0)
     const [isModalOpen, setModalOpen] = useState(false)
     const [convoName, setConvoName] = useState('')
+    const [currentMessages, setCurrentMessages] = useState<Message[]>([])
     const openModal = () => setModalOpen(true)
     const closeModal = () => setModalOpen(false)
 
@@ -52,7 +54,9 @@ const HomePage = () => {
         if (senderID === null) {
             navigate('/login')
         }
-    })
+
+        console.log(currentMessages)
+    }, [])
 
     return (
         <div className="main-root">
@@ -68,11 +72,11 @@ const HomePage = () => {
                 </form>
             </Modal>
 
-            <Navbar conversationNumber={setConversation} openModal={openModal} />
+            <Navbar conversationNumber={setConversation} openModal={openModal} setCurrentMessages={setCurrentMessages} />
 
             <div className="message-root">
                 <div className="messages-main">
-                    <MessageBox className="messagebox" conversation_id={conversation.toString()} />
+                    <MessageBox className="messagebox" conversation_id={conversation.toString()} currentMessages={setCurrentMessages} />
                 </div>
                 <div className="messages-input">
                     <MessageInput conversation_id={conversation.toString()} sender_id={senderID} />
