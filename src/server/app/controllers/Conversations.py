@@ -6,6 +6,12 @@ from app.utils.security import hashPassword, generateToken, checkPassword
 def createConversation():
     data = request.get_json()
     name = data.get('name')
+    token = request.headers.get('Authorization')
+
+    user = Database('app/data.db').execute('select * from Users where token = ?', token)
+
+    if len(user) == 0:
+        return jsonify({'message', 'You are not authorized to see this'}), 401
 
     Database('app/data.db').execute('insert into Conversations (name) values (?)', name)
 
@@ -13,11 +19,25 @@ def createConversation():
 
 @app.route('/conversation/<name>', methods=['GET'])
 def getConversation(name):
+    token = request.headers.get('Authorization')
+
+    user = Database('app/data.db').execute('select * from Users where token = ?', token)
+
+    if len(user) == 0:
+        return jsonify({'message', 'You are not authorized to see this'}), 401
+
     result = Database('app/data.db').execute('select conversation_id from Conversations where name = ?', name)
     return jsonify({'message': result[0][0]})
 
 @app.route('/conversations', methods=['GET'])
 def getConversations():
+    token = request.headers.get('Authorization')
+
+    user = Database('app/data.db').execute('select * from Users where token = ?', token)
+
+    if len(user) == 0:
+        return jsonify({'message', 'You are not authorized to see this'}), 401
+
     result = Database('app/data.db').execute('select * from Conversations')
 
     obj = []

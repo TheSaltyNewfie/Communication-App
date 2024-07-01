@@ -9,7 +9,11 @@ const Navbar = (props: any) => {
     const [conversations, setConversations] = useState<Conversation[]>([])
 
     const getData = async () => {
-        const res = await axios.get(`${config.api_endpoint}/conversations`)
+        const res = await axios.get(`${config.api_endpoint}/conversations`, {
+            headers: {
+                Authorization: localStorage.getItem('token')
+            },
+        })
         setConversations(res.data)
     }
 

@@ -22,6 +22,9 @@ const HomePage = () => {
         e.preventDefault()
 
         await axios.post(`${config.api_endpoint}/conversations/create`, {
+            headers: {
+                Authorization: localStorage.getItem('token')
+            },
             name: convoName
         })
         closeModal()
@@ -57,6 +60,7 @@ const HomePage = () => {
                         onChange={(e) => setConvoName(e.target.value)}
                     />
                     <button type='submit'>Create Conversation</button>
+                    <button onClick={closeModal}>Cancel</button>
                 </form>
             </Modal>
 
