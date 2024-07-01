@@ -3,6 +3,7 @@ import axios from 'axios'
 import './MessageInput.css'
 import config from '../assets/config.json'
 import { socket } from '../socket'
+import Button from 'react-bootstrap/Button'
 
 const MessageInput = (props: any) => {
     const [content, setContent] = useState('')
@@ -10,6 +11,8 @@ const MessageInput = (props: any) => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
+
+        const date = new Date(Date.now())
 
         const res = await axios.post(`${config.api_endpoint}/messages/create`,
             {
@@ -22,10 +25,12 @@ const MessageInput = (props: any) => {
                 }
             }
         )
+
         let data = {
             "conversation_id": props.conversation_id,
             "content": content,
-            "sender": localStorage.getItem('username')
+            "sender": localStorage.getItem('username'),
+            "sent_at": `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()} - ${date.getHours()}:${date.getMinutes()}`
         }
 
         socket.emit('message', data)

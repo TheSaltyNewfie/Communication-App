@@ -52,7 +52,7 @@ const MessageBox = (props: any) => {
                         <h2>{message.sender}</h2>
                     )}
                     <p>{message.content}</p>
-                    {/*<p>{message.sent_at.toString()}</p>*/}
+                    <p>{message.sent_at.toString()}</p>
                 </div>
             ))}
         </div>
