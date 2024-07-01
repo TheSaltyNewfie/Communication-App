@@ -11,7 +11,11 @@ const MessageBox = (props: any) => {
 
     const getMessages = async () => {
         const res = await axios.get(
-            `${config.api_endpoint}/messages/${props.conversation_id}`
+            `${config.api_endpoint}/messages/${props.conversation_id}`, {
+            headers: {
+                Authorization: localStorage.getItem('token')
+            },
+        }
         )
         console.log(res)
         let reverse = res.data
@@ -35,6 +39,7 @@ const MessageBox = (props: any) => {
                         <h2>{message.sender}</h2>
                     )}
                     <p>{message.content}</p>
+                    <p>{message.sent_at.toString()}</p>
                 </div>
             ))}
         </div>

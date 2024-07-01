@@ -13,9 +13,6 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content foreground" onClick={e => e.stopPropagation()}>
-                <button className="modal-close" onClick={onClose}>&times;</button>
-                <br></br> {/* TODO: Fix css to remove line breaks*/}
-                <br></br>
                 {children}
             </div>
         </div>

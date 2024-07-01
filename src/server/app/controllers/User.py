@@ -32,7 +32,7 @@ def authenticateUser():
 
     token = generateToken(32)
 
-    user_updated = Database('app/data.db').execute('UPDATE Users SET token = ? WHERE username = ?', token, username)
+    Database('app/data.db').execute('UPDATE Users SET token = ? WHERE username = ?', token, username)
     
     if isUser:
         return jsonify({'token': token, 'sender_id': user[0][0]}), 200
@@ -49,6 +49,9 @@ def getUsers(id):
         'email': users[0][1]
     }
 
+    if len(users) == 0:
+        return jsonify({'message': 'no user found'}), 404
+    
     return jsonify(obj)
 
 @app.route('/account', methods=['GET'])
@@ -65,5 +68,10 @@ def resetPassword():
     data = request.get_json()
     username = data.get('username')
     email = data.get('email')
+    password = data.get('password')
 
-    user = Database('app/data.db').execute('select')
+    try:
+        Database('app/data.db').execute('update Users set password = ? WHERE username = ? and email = ?', password, username, email)
+        return jsonify({'message': 'successful'})
+    except Exception as e:
+        return jsonify({'error': e})

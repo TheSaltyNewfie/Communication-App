@@ -9,12 +9,19 @@ const MessageInput = (props: any) => {
     const handleSubmit = async (e: any) => {
         e.preventDefault()
 
-        await axios.post(`${config.api_endpoint}/messages/create`, {
-            conversation_id: props.conversation_id,
-            sender_id: props.sender_id,
-            content: content
-        })
+        const res = await axios.post(`${config.api_endpoint}/messages/create`,
+            {
+                conversation_id: props.conversation_id,
+                content: content
+            },
+            {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            }
+        )
 
+        console.log(res)
         setContent('')
     }
 
