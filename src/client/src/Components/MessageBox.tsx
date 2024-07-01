@@ -6,27 +6,10 @@ import config from '../assets/config.json'
 import { socket } from '../socket'
 
 const MessageBox = (props: any) => {
-    const [messages, setMessages] = useState<Message[]>([])
     const [isConnected, setIsConnected] = useState(socket.connected)
 
-
-    const getMessages = async () => {
-        const res = await axios.get(
-            `${config.api_endpoint}/messages/${props.conversation_id}`, {
-            headers: {
-                Authorization: localStorage.getItem('token')
-            },
-        }
-        )
-        console.log(res)
-        let reverse = res.data
-        reverse.reverse()
-        setMessages(reverse)
-    }
-
     useEffect(() => {
-        getMessages()
-        props.currentMessages(messages)
+        props.getMessages()
     }, [])
 
     useEffect(() => {
@@ -42,7 +25,10 @@ const MessageBox = (props: any) => {
         function onMessage(data: any) {
             console.log(data)
 
-            setMessages(previous => [data, ...previous])
+            if (data.conversation_id == props.conversation_id) {
+                props.setCurrentMessages((previous: Message[]) => [data, ...previous])
+            }
+
         }
 
         socket.on('connect', onConnect)
@@ -54,11 +40,11 @@ const MessageBox = (props: any) => {
             socket.off('disconnect', onDisconnect)
             socket.off('newMessage', onMessage)
         }
-    }, [messages])
+    }, [props.currentMessages])
 
     return (
         <div className="message-area">
-            {messages.map((message, index) => (
+            {props.currentMessages.map((message: Message, index: any) => (
                 <div className="message" key={index}>
                     {config.special_names.includes(message.sender) ? (
                         <h2 style={{ color: config.special_name_color }}>{message.sender}</h2>

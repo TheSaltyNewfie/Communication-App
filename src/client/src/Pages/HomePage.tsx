@@ -32,6 +32,20 @@ const HomePage = () => {
         closeModal()
     }
 
+    const getMessages = async () => {
+        const res = await axios.get(
+            `${config.api_endpoint}/messages/${conversation}`, {
+            headers: {
+                Authorization: localStorage.getItem('token')
+            },
+        }
+        )
+        console.log(res)
+        let reverse = res.data
+        reverse.reverse()
+        setCurrentMessages(reverse)
+    }
+
     useEffect(() => {
         const getAccount = async () => {
             try {
@@ -72,11 +86,11 @@ const HomePage = () => {
                 </form>
             </Modal>
 
-            <Navbar conversationNumber={setConversation} openModal={openModal} setCurrentMessages={setCurrentMessages} />
+            <Navbar conversationNumber={setConversation} openModal={openModal} setCurrentMessages={setCurrentMessages} currentMessages={currentMessages} getMessages={getMessages} />
 
             <div className="message-root">
                 <div className="messages-main">
-                    <MessageBox className="messagebox" conversation_id={conversation.toString()} currentMessages={setCurrentMessages} />
+                    <MessageBox className="messagebox" conversation_id={conversation.toString()} currentMessages={currentMessages} setCurrentMessages={setCurrentMessages} getMessages={getMessages} />
                 </div>
                 <div className="messages-input">
                     <MessageInput conversation_id={conversation.toString()} sender_id={senderID} />
