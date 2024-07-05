@@ -1,25 +1,21 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 
-import HomePage from './Pages/HomePage'
-import LoginPage from './Pages/LoginPage'
-import RegisterPage from './Pages/RegisterPage'
+import ChatPage from "@/pages/ChatPage";
+import LoginPage from "@/pages/LoginPage";
+import ConversationPage from "@/pages/ConversationPage";
 
-import './App.css'
+import "./styles/globals.css";
 
 function App() {
-
 	return (
-		<Routes>
-			<Route
-				path="/"
-				element={<HomePage />}
-			/>
-
-			<Route path="/login" element={<LoginPage />} />
-
-			<Route path="/register" element={<RegisterPage />} />
-		</Routes>
-	)
+		<main className="dark text-foreground bg-background">
+			<Routes>
+				<Route element={<ChatPage />} path="/chat" />
+				<Route element={<LoginPage />} path="/" />
+				<Route element={<ConversationPage />} path="/conversations" />
+			</Routes>
+		</main>
+	);
 }
 
-export default App
+export default App;

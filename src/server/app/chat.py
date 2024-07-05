@@ -1,5 +1,6 @@
 import eventlet
 import socketio
+import os
 
 sio = socketio.Server(cors_allowed_origins='*')
 app = socketio.WSGIApp(sio, static_files={
@@ -22,4 +23,4 @@ def disconnect(sid):
     print('disconnect ', sid)
 
 if __name__ == '__main__':
-    eventlet.wsgi.server(eventlet.listen(('192.168.4.123', 8100)), app)
+    eventlet.wsgi.server(eventlet.listen((os.getenv('FLASK_RUN_HOST', '127.0.0.1'), 8100)), app)
