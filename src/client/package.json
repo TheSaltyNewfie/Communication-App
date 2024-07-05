@@ -57,6 +57,8 @@
     "axios": "^1.7.2",
     "clsx": "2.1.1",
     "framer-motion": "~11.1.1",
+    "install": "^0.13.0",
+    "npm": "^10.8.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.23.0",
@@ -72,6 +74,7 @@
     "@typescript-eslint/parser": "^7.8.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "dotenv": "^16.4.5",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-import": "^2.26.0",
@@ -84,6 +87,8 @@
     "postcss": "^8.4.38",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vite-tsconfig-paths": "^4.3.2"
+    "vite-tsconfig-paths": "^4.3.2",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
   }
 }

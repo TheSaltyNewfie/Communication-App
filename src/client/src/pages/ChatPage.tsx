@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import 'tailwindcss/tailwind.css'
 import Messages from '@/components/Messages'
 import Sidebar from '@/components/Sidebar'
-import config from '../config/config.json'
+import config from '../config/config'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import MessageInput from '@/components/MessageInput'
 
 export default function ChatPage() {
 	const navigate = useNavigate()
+	const [conversations, setConversations] = useState(0)
 
 	useEffect(() => {
 		const getAccount = async () => {
@@ -27,7 +28,22 @@ export default function ChatPage() {
 			}
 		}
 
+		const checkConversations = async () => {
+			const response = await axios.get(`${config.api_endpoint}/conversations`, {
+				headers: {
+					Authorization: localStorage.getItem('token')
+				}
+			})
+			setConversations(response.data.length)
+		}
+
 		getAccount()
+		checkConversations()
+		console.log(conversations)
+
+		if (localStorage.getItem("conversation") == null || localStorage.getItem("conversation") == '0') {
+			navigate('/conversations')
+		}
 	}, [])
 
 	return (

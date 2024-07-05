@@ -3,6 +3,7 @@ import Message from "./Message";
 import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import { socket } from '../config/socket'
+import config from '../config/config'
 
 interface Message {
     sender: string
@@ -21,7 +22,8 @@ const Messages = () => {
 
     useEffect(() => {
         const fetchMessages = async () => {
-            const response = await axios.get("http://localhost:5001/messages/0", {
+            console.log(`${config.api_endpoint}/messages/${localStorage.getItem("conversation")}`)
+            const response = await axios.get(`${config.api_endpoint}/messages/${localStorage.getItem("conversation")}`, {
                 headers: {
                     Authorization: localStorage.getItem("token")
                 }
@@ -32,6 +34,8 @@ const Messages = () => {
     }, [])
 
     useEffect(() => {
+        console.log(isConnected)
+
         function onConnect() {
             setIsConnected(true)
         }

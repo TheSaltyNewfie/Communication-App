@@ -1,22 +1,30 @@
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
-import { Button, ButtonGroup } from "@nextui-org/button"
+import { Button } from "@nextui-org/button"
 import { Divider } from "@nextui-org/divider"
 import UserCard from "./UserCard"
+import { useNavigate } from "react-router-dom"
 
-const Sidebar = (props: any) => {
+const Sidebar = () => {
+    const navigate = useNavigate()
+
+    const logout = () => {
+        localStorage.removeItem("token")
+        navigate('/')
+    }
 
     return (
         <div className="space-y-4">
 
             <Card>
                 <CardBody className="space-y-2">
-                    <Button color="primary">
+                    <p>currently in {localStorage.getItem("conversation")}</p>
+                    <Button color="primary" onClick={() => navigate('/chat')}>
                         Home
                     </Button>
                     <Button color="secondary">
                         Profile
                     </Button>
-                    <Button color="success">
+                    <Button color="success" onClick={() => navigate('/conversations')}>
                         Conversations
                     </Button>
                 </CardBody>
@@ -27,9 +35,7 @@ const Sidebar = (props: any) => {
                 </CardHeader>
                 <Divider />
                 <CardBody className="space-y-2">
-                    <UserCard username="June" />
-                    <UserCard username="John" />
-                    <UserCard username="Emily" />
+                    <UserCard username="example" />
                 </CardBody>
             </Card>
             <Card>
@@ -38,7 +44,7 @@ const Sidebar = (props: any) => {
                 </CardHeader>
                 <Divider />
                 <CardBody>
-                    <Button color="danger">
+                    <Button color="danger" onClick={logout}>
                         Logout
                     </Button>
                 </CardBody>

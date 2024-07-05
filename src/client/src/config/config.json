@@ -1,6 +1,0 @@
-{
-    "special_names": ["TobiasDodge"],
-    "special_name_color": "#83b420",
-    "api_endpoint": "http://127.0.0.1:5001",
-    "ws_endpoint": "ws://127.0.0.1:8100"
-}
