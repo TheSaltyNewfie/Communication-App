@@ -10,6 +10,7 @@ const ConversationPage = () => {
 
     useEffect(() => {
         const getConvos = async () => {
+            console.log(`${config.api_endpoint}/conversations`)
             const response = await axios.get(`${config.api_endpoint}/conversations`, {
                 headers: {
                     Authorization: localStorage.getItem('token')

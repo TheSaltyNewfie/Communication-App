@@ -1,6 +1,12 @@
 # Use an official Node.js runtime as a parent image
 FROM node:18-alpine
 
+ARG VITE_API_ENDPOINT
+ARG VITE_WS_ENDPOINT
+
+ENV VITE_API_ENDPOINT=$VITE_API_ENDPOINT
+ENV VITE_WS_ENDPOINT=$VITE_WS_ENDPOINT
+
 # Set the working directory in the container
 WORKDIR /app
 

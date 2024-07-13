@@ -23,6 +23,27 @@ const LoginPage = () => {
     const [isRegister, setIsRegister] = useState(false)
     const navigate = useNavigate()
 
+    const getAccount = async () => {
+        try {
+            const res = await axios.get(`${config.api_endpoint}/account`, {
+                headers: {
+                    "Authorization": localStorage.getItem('token')
+                }
+            })
+
+            localStorage.setItem('username', res.data.username)
+            navigate("/chat")
+        } catch (error: any) {
+            if (error.response.status == 401) {
+                console.log("User requires login")
+            }
+        }
+    }
+
+    useEffect(() => {
+        getAccount()
+    }, [])
+
     useEffect(() => {
         const isLoginFilled = loginDetails.username !== "" || loginDetails.password !== ""
         const isRegisterFilled = registerDetails.username !== "" || registerDetails.password !== "" || registerDetails.confirmPassword !== "" || registerDetails.email !== ""
@@ -30,27 +51,6 @@ const LoginPage = () => {
         setIsLogin(isRegisterFilled)
         setIsRegister(isLoginFilled)
     }, [loginDetails, registerDetails])
-
-    useEffect(() => {
-        const getAccount = async () => {
-            try {
-                const res = await axios.get(`${config.api_endpoint}/account`, {
-                    headers: {
-                        "Authorization": localStorage.getItem('token')
-                    }
-                })
-
-                localStorage.setItem('username', res.data.username)
-                navigate("/chat")
-            } catch (error: any) {
-                if (error.response.status == 401) {
-                    console.log("User requires login")
-                }
-            }
-        }
-
-        getAccount()
-    }, [])
 
     const handleLogin = async () => {
         const response = await axios.post(`${config.api_endpoint}/users/authenticate`, loginDetails)
