@@ -1,0 +1,1 @@
+podman build --build-arg VITE_API_ENDPOINT=http://localhost:8000 --build-arg VITE_WS_ENDPOINT=ws://localhost:8000 -t chat-frontend ./client/

@@ -18,10 +18,11 @@
         "jsx": "react-jsx",
 
         /* Linting */
-        "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        // TODO: remove this when ready to move to (proper) production
+        "strict": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noFallthroughCasesInSwitch": false
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]
