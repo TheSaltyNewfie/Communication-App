@@ -1,1 +1,0 @@
-sqlite3 app/data.db < app/sql/create.sql
