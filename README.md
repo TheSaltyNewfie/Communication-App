@@ -6,33 +6,36 @@ This is a simple messaging application designed with a focus on simplicity. The 
 
 ## Features
 
-- User authentication
-- Real-time messaging
-- Simple and clean user interface
+-   User authentication
+-   Real-time messaging
+-   Simple and clean user interface
 
 ## Tech Stack
 
 **Frontend:**
-- React
-- TypeScript
-- Vite
 
-**Backend:**
-- Python
-- Flask
-- SQLite3
+-   React
+-   TypeScript
+-   Vite
+
+**Backend:** [Repo](https://github.com/TheSaltyNewfie/Communication-App-Backend)
+
+-   Python
+-   Flask
+-   SQLite3
 
 ## Installation
 
 ### Prerequisites
 
-- Node.js
-- Python 3.x
-- SQLite3
+-   Node.js
+-   Python 3.x
+-   SQLite3
 
 ### Frontend Setup
 
 1. Clone the repository:
+
     ```sh
     git clone https://github.com/TheSaltyNewfie/Communication-App
     cd Communication-App
@@ -44,9 +47,11 @@ This is a simple messaging application designed with a focus on simplicity. The 
     npm install
     ```
 3. Configure the frontend:
+
     ```jsonc
     {
-        "special_names": [ // Allows for special users
+        "special_names": [
+            // Allows for special users
             "TobiasDodge"
         ],
         "special_name_color": "gold", // This can be any color
@@ -61,19 +66,24 @@ This is a simple messaging application designed with a focus on simplicity. The 
 
 ### Backend Setup
 
-1. Navigate to the backend directory and create a virtual environment:
+1. Clone and activate environment:
+
     ```sh
-    cd server
-    python -m venv .venv
-    source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
+    git clone https://github.com/thesaltynewfie/communication-app-backend.git
+
+    # cd ...
+
+    pipenv shell
     ```
 
 2. Install the required Python packages:
+
     ```sh
-    pip install -r requirements.txt
+    pipenv install
     ```
 
 3. Set up the SQLite database:
+
     ```sh
     sqlite3 app/data.db < app/sql/create.sql
     ```

@@ -6,6 +6,7 @@ import config from '../config/config'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import MessageInput from '@/components/MessageInput'
+import { setState } from '@/utils/state'
 
 export default function ChatPage() {
 	const navigate = useNavigate()
@@ -44,6 +45,9 @@ export default function ChatPage() {
 		if (localStorage.getItem("conversation") == null || localStorage.getItem("conversation") == '0') {
 			navigate('/conversations')
 		}
+
+		setState({ username: localStorage.getItem('username'), conversation: localStorage.getItem('conversation'), user_id: localStorage.getItem('sender_id') })
+		//sendState(sessionStorage.getItem('state'))
 	}, [])
 
 	return (
