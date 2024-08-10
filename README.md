@@ -31,6 +31,7 @@ This is a simple messaging application designed with a focus on simplicity. The 
 -   Node.js
 -   Python 3.x
 -   SQLite3
+-   Podman/Docker
 
 ### Frontend Setup
 
